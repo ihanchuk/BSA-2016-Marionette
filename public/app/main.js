@@ -62,10 +62,12 @@ App.addRegions({
 });
 
 App.on("start", function(options){
+    var controller = require('./controllers/controller.js');
+    controller.bindContext(this);
     var router = require('./router/router.js');
-    var testView =require('./views/testView.js');
+    // var testView =require('./views/testView.js');
     Backbone.history.start();
-    this.content.show(new testView);
+    // this.content.show(new testView);
 });
 
 $(function() {

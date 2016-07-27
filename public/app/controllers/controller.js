@@ -1,10 +1,17 @@
 var MyController = Marionette.Controller.extend({
+    context:null,
+    bindContext:function(newContext){
+        this.context = newContext;
+    },
     home: function() {
-        console.log(this.test);
+        var testView =require('../views/testView.js');
+        this.context.content.show(new testView);
     },
     profile: function() {
-        alert("profile");
+        console.log(this.context);
     }
 });
 
-module.exports = new MyController;
+contr = new MyController;
+
+module.exports = contr;

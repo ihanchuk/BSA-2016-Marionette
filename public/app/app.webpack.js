@@ -108,10 +108,12 @@
 	});
 
 	App.on("start", function(options){
-	    var router = __webpack_require__(1);
-	    var testView =__webpack_require__(3);
+	    var controller = __webpack_require__(1);
+	    controller.bindContext(this);
+	    var router = __webpack_require__(4);
+	    // var testView =require('./views/testView.js');
 	    Backbone.history.start();
-	    this.content.show(new testView);
+	    // this.content.show(new testView);
 	});
 
 	$(function() {
@@ -125,40 +127,32 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var controller = __webpack_require__(2);
-	var router = new Marionette.AppRouter({
-	    controller: controller,
-	    appRoutes: {
-	        "home": "home",
-	        "profile": "profile",
+	var MyController = Marionette.Controller.extend({
+	    context:null,
+	    bindContext:function(newContext){
+	        this.context = newContext;
+	    },
+	    home: function() {
+	        var testView =__webpack_require__(2);
+	        this.context.content.show(new testView);
+	    },
+	    profile: function() {
+	        console.log(this.context);
 	    }
 	});
 
-	module.exports = router;
+	contr = new MyController;
+
+	module.exports = contr;
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-	var MyController = Marionette.Controller.extend({
-	    home: function() {
-	        console.log(this.test);
-	    },
-	    profile: function() {
-	        alert("profile");
-	    }
-	});
-
-	module.exports = new MyController;
-
-/***/ },
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// var testModel = Backbone.Model.extend();
 	// var tModel = new testModel({author:"john doe",title:"Harry Poster"});
 
-	var tModel = __webpack_require__(4);
+	var tModel = __webpack_require__(3);
 
 	var testView = Marionette.ItemView.extend({
 	    model:tModel,
@@ -181,13 +175,28 @@
 	module.exports = testView;
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	var testModel = Backbone.Model.extend();
 	var tModel = new testModel({author:"john doe",title:"Harry Poster"});
 
 	module.exports = tModel;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var controller = __webpack_require__(1);
+	var router = new Marionette.AppRouter({
+	    controller: controller,
+	    appRoutes: {
+	        "home": "home",
+	        "profile": "profile",
+	    }
+	});
+
+	module.exports = router;
 
 /***/ }
 /******/ ]);
