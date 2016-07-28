@@ -12,7 +12,7 @@ var MyController = Marionette.Controller.extend({
 
         BookCollection.fetch().done(function () {
             var view =new BooksCollectionView({collection: BookCollection});
-            that.content.show( view);
+            that.content.show(view);
         });
 
     },

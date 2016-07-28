@@ -1,32 +1,3 @@
-// var BookModel = Backbone.Model.extend({
-//     urlRoot : '/books/',
-//     url: function() {
-//         return this.urlRoot + this.id;
-//     },
-// });
-//
-// var BooksCollection = Backbone.Collection.extend({
-//     url: '/books',
-//     model: BookModel,
-// });
-// //
-// var books = new BooksCollection();
-//
-// var BookItemView = Backbone.Marionette.ItemView.extend({
-//     tagName: "tr",
-//     template: '#books-template'
-// });
-//
-// var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
-//     tagName: "table",
-//     childView: BookItemView
-// });
-//
-// var BooksView = new BooksCollectionView({ collection: books  });
-//
-//BooksView.render();
-
-
 App = new Backbone.Marionette.Application({
     test:123
 });
@@ -37,6 +8,10 @@ App.addRegions({
 });
 
 App.on("start", function(options){
+    /*Sending XHR token to Laravel*/
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+    });
     var controller = require('./controllers/controller.js');
     controller.bindContext(this);
     var router = require('./router/router.js');

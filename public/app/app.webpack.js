@@ -44,35 +44,6 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// var BookModel = Backbone.Model.extend({
-	//     urlRoot : '/books/',
-	//     url: function() {
-	//         return this.urlRoot + this.id;
-	//     },
-	// });
-	//
-	// var BooksCollection = Backbone.Collection.extend({
-	//     url: '/books',
-	//     model: BookModel,
-	// });
-	// //
-	// var books = new BooksCollection();
-	//
-	// var BookItemView = Backbone.Marionette.ItemView.extend({
-	//     tagName: "tr",
-	//     template: '#books-template'
-	// });
-	//
-	// var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
-	//     tagName: "table",
-	//     childView: BookItemView
-	// });
-	//
-	// var BooksView = new BooksCollectionView({ collection: books  });
-	//
-	//BooksView.render();
-
-
 	App = new Backbone.Marionette.Application({
 	    test:123
 	});
@@ -83,6 +54,9 @@
 	});
 
 	App.on("start", function(options){
+	    $.ajaxSetup({
+	        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+	    });
 	    var controller = __webpack_require__(1);
 	    controller.bindContext(this);
 	    var router = __webpack_require__(6);
@@ -110,12 +84,11 @@
 	        var BookCollection = __webpack_require__(2);
 	        var BookItemView = __webpack_require__(4);
 	        var BooksCollectionView =  __webpack_require__(5);
-
 	        var BookCollection = new BookCollection();
 
 	        BookCollection.fetch().done(function () {
 	            var view =new BooksCollectionView({collection: BookCollection});
-	            that.content.show( view);
+	            that.content.show(view);
 	        });
 
 	    },
@@ -158,10 +131,29 @@
 
 	var BookItemView = Backbone.Marionette.ItemView.extend({
 	    tagName: "tr",
-	    template: '#books-template'
+	    template: '#books-template',
+	    ui: {
+	        deleteModel: ".deleteModel",
+	        updateModel: ".updateModel"
+	    },
+	    DeleteModelAction:function(){
+	        this.model.destroy({ headers: {_token:window.__token}});
+	    },
+	    UpdateModelAction:function(){
+	       this.model.set({title:"New text title"});
+	    },
+	    events:{
+	        "click @ui.deleteModel":'DeleteModelAction',
+	        "click @ui.updateModel":'UpdateModelAction',
+	    },
+	    modelEvents:{
+	        "change":"render"
+	    },
 	});
 
 	module.exports = BookItemView;
+
+
 
 /***/ },
 /* 5 */

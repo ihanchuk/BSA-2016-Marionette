@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="_token" content="{!! csrf_token() !!}"/>
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <style type="text/css">
         .mainTable{
             width:100%;
         }
+        .mainTable td{
+            border-bottom:1px solid silver;
+            padding:5px 0 5px 0;
+        }
+
+        .mainTable td input[type=text]{
+            border:none;
+        }
+
         .mainTable td{
             font-family: Arial;
         }
@@ -27,12 +37,16 @@
 
 </div>
 
-
+<script type="text/javascript">
+    window.__token ="{!! csrf_token() !!}";
+</script>
 <script type="text/template" id="books-template">
-    <td class='author'><%= author %></td>
-    <td class='year'><%= year %></td>
-    <td class='title'><%= title %></td>
-    <td class='genre'><%= genre %></td>
+    <td><input type='text' value='<%= author %>' class="author"></td>
+    <td><input type='text' value='<%= year %>' class="year"></td>
+    <td><input type='text' value='<%= title %>' class="title"></td>
+    <td><input type='text' value='<%= genre %>' class="genre"></td>
+    <td class='delete'><input type='button' class='deleteModel' value='delete'></td>
+    <td class='edit'><input type='button'  class='updateModel' value='Sync to server'></td>
 </script>
 
 <script type="text/template" id="tTemplate">
