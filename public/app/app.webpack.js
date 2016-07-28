@@ -85,7 +85,7 @@
 	App.on("start", function(options){
 	    var controller = __webpack_require__(1);
 	    controller.bindContext(this);
-	    var router = __webpack_require__(2);
+	    var router = __webpack_require__(6);
 	    Backbone.history.start();
 	});
 
@@ -98,7 +98,7 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	var MyController = Marionette.Controller.extend({
 	    context:null,
@@ -107,29 +107,9 @@
 	    },
 	    home: function() {
 	        var that = this.context;
-
-	        var BookModel = Backbone.Model.extend({
-	            urlRoot : '/books/',
-	            url: function() {
-	                return this.urlRoot + this.id;
-	            },
-	        });
-
-	        var BookCollection = Backbone.Collection.extend({
-	            url: '/books',
-	            model: BookModel,
-	        });
-
-	        var BookItemView = Backbone.Marionette.ItemView.extend({
-	            tagName: "tr",
-	            template: '#books-template'
-	        });
-
-	        var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
-	            childView: BookItemView,
-	            tagName: 'table',
-	            className:'table table-striped mainTable'
-	        });
+	        var BookCollection = __webpack_require__(2);
+	        var BookItemView = __webpack_require__(4);
+	        var BooksCollectionView =  __webpack_require__(5);
 
 	        var BookCollection = new BookCollection();
 
@@ -150,6 +130,54 @@
 
 /***/ },
 /* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var BookModel = __webpack_require__(3);
+	var BookCollection = Backbone.Collection.extend({
+	    url: '/books',
+	    model: BookModel,
+	});
+	module.exports = BookCollection;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	var BookModel = Backbone.Model.extend({
+	    urlRoot : '/books/',
+	    url: function() {
+	        return this.urlRoot + this.id;
+	    },
+	});
+
+	module.exports =BookModel;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	var BookItemView = Backbone.Marionette.ItemView.extend({
+	    tagName: "tr",
+	    template: '#books-template'
+	});
+
+	module.exports = BookItemView;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var BookItemView = __webpack_require__(4);
+	var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
+	    childView: BookItemView,
+	    tagName: 'table',
+	    className:'table table-striped mainTable'
+	});
+
+	module.exports = BooksCollectionView;
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var controller = __webpack_require__(1);

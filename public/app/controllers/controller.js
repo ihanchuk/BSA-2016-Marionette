@@ -5,30 +5,9 @@ var MyController = Marionette.Controller.extend({
     },
     home: function() {
         var that = this.context;
-
-        var BookModel = Backbone.Model.extend({
-            urlRoot : '/books/',
-            url: function() {
-                return this.urlRoot + this.id;
-            },
-        });
-
-        var BookCollection = Backbone.Collection.extend({
-            url: '/books',
-            model: BookModel,
-        });
-
-        var BookItemView = Backbone.Marionette.ItemView.extend({
-            tagName: "tr",
-            template: '#books-template'
-        });
-
-        var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
-            childView: BookItemView,
-            tagName: 'table',
-            className:'table table-striped mainTable'
-        });
-
+        var BookCollection = require("../collections/books/BookCollection.js");
+        var BookItemView = require("../views/books/BookItemView.js");
+        var BooksCollectionView =  require("../views/books/BooksCollectionView.js");
         var BookCollection = new BookCollection();
 
         BookCollection.fetch().done(function () {
