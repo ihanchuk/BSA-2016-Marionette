@@ -5,14 +5,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style type="text/css">
-        #testDiv{
-           border:1px solid red;
-        }
-        #header{
-            background-color: #a6e1ec;
-        }
-        #main{
-            background-color: #9d9d9d;
+        #content{
+            background-color:#9d9d9d;
         }
     </style>
 </head>
@@ -30,10 +24,12 @@
 
 </div>
 
+
 <script type="text/template" id="books-template">
-    <td id="name"><%= author %></td>
-  <td id="age"><%= year%></td>
-  <td id="userid"><%= title%></td>
+    <td class="author"><%= author %></td>
+    <td class="year"><%= year %></td>
+    <td class="title"><%= title %></td>
+    <td class="genre"><%= genre %></td>
 </script>
 
 <script type="text/template" id="tTemplate">

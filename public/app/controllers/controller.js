@@ -4,11 +4,41 @@ var MyController = Marionette.Controller.extend({
         this.context = newContext;
     },
     home: function() {
-        var testView =require('../views/testView.js');
-        this.context.content.show(new testView);
+        var that = this.context;
+
+        var BookModel = Backbone.Model.extend({
+            urlRoot : '/books/',
+            url: function() {
+                return this.urlRoot + this.id;
+            },
+        });
+
+        var BookCollection = Backbone.Collection.extend({
+            url: '/books',
+            model: BookModel,
+        });
+
+        var BookItemView = Backbone.Marionette.ItemView.extend({
+            tagName: "tr",
+            template: '#books-template'
+        });
+
+        var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
+            childView: BookItemView ,
+            tagName: 'table',
+            className:'table table-striped'
+        });
+
+        var BookCollection = new BookCollection();
+
+        BookCollection.fetch().done(function () {
+            var view =new BooksCollectionView({collection: BookCollection});
+            that.content.show( view);
+        });
+
     },
     profile: function() {
-        console.log(this.context);
+        console.info("rendering profile action");
     }
 });
 

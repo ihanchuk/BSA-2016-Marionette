@@ -46,12 +46,6 @@
 
 	// var BookModel = Backbone.Model.extend({
 	//     urlRoot : '/books/',
-	//     initialize:function(){
-	//         // var that = this;
-	//         // this.fetch().then(function(){
-	//         // });
-	//         //this.fetch();
-	//     },
 	//     url: function() {
 	//         return this.urlRoot + this.id;
 	//     },
@@ -60,15 +54,8 @@
 	// var BooksCollection = Backbone.Collection.extend({
 	//     url: '/books',
 	//     model: BookModel,
-	//     initialize:function(){
-	//         var that = this;
-	//         this.fetch().then(function(){
-	//             // console.log(that.models[10].attributes.year);
-	//            // console.log(that.get(10).get("year"));
-	//         });
-	//     }
 	// });
-	//
+	// //
 	// var books = new BooksCollection();
 	//
 	// var BookItemView = Backbone.Marionette.ItemView.extend({
@@ -83,19 +70,7 @@
 	//
 	// var BooksView = new BooksCollectionView({ collection: books  });
 	//
-	// BooksView.render();
-	//
-	// document.body.appendChild(BooksView.el);
-	//
-
-
-
-
-
-	// var tv = new testView();
-	// tv.render();
-	//
-
+	//BooksView.render();
 
 
 	App = new Backbone.Marionette.Application({
@@ -110,13 +85,11 @@
 	App.on("start", function(options){
 	    var controller = __webpack_require__(1);
 	    controller.bindContext(this);
-	    var router = __webpack_require__(4);
-	    // var testView =require('./views/testView.js');
+	    var router = __webpack_require__(2);
 	    Backbone.history.start();
-	    // this.content.show(new testView);
 	});
 
-	$(function() {
+	$(function() { 
 	    App.start();
 	});
 
@@ -125,7 +98,7 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	var MyController = Marionette.Controller.extend({
 	    context:null,
@@ -133,11 +106,41 @@
 	        this.context = newContext;
 	    },
 	    home: function() {
-	        var testView =__webpack_require__(2);
-	        this.context.content.show(new testView);
+	        var that = this.context;
+
+	        var BookModel = Backbone.Model.extend({
+	            urlRoot : '/books/',
+	            url: function() {
+	                return this.urlRoot + this.id;
+	            },
+	        });
+
+	        var BookCollection = Backbone.Collection.extend({
+	            url: '/books',
+	            model: BookModel,
+	        });
+
+	        var BookItemView = Backbone.Marionette.ItemView.extend({
+	            tagName: "tr",
+	            template: '#books-template'
+	        });
+
+	        var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
+	            childView: BookItemView ,
+	            tagName: 'table',
+	            className:'table table-striped'
+	        });
+
+	        var BookCollection = new BookCollection();
+
+	        BookCollection.fetch().done(function () {
+	            var view =new BooksCollectionView({collection: BookCollection});
+	            that.content.show( view);
+	        });
+
 	    },
 	    profile: function() {
-	        console.log(this.context);
+	        console.info("rendering profile action");
 	    }
 	});
 
@@ -149,49 +152,11 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// var testModel = Backbone.Model.extend();
-	// var tModel = new testModel({author:"john doe",title:"Harry Poster"});
-
-	var tModel = __webpack_require__(3);
-
-	var testView = Marionette.ItemView.extend({
-	    model:tModel,
-	    ui: {
-	        ttl: "div.title",
-	        clicker:"#changeModel"
-	    },
-	    getTitle:function(){
-	        console.log(this.ui.ttl.text());
-	    },
-	    events:{
-	        "click @ui.clicker":'getTitle'
-	    },
-	    modelEvents:{
-	        "change":"render"
-	    },
-	    template:"#tTemplate"
-	});
-
-	module.exports = testView;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	var testModel = Backbone.Model.extend();
-	var tModel = new testModel({author:"john doe",title:"Harry Poster"});
-
-	module.exports = tModel;
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var controller = __webpack_require__(1);
 	var router = new Marionette.AppRouter({
 	    controller: controller,
 	    appRoutes: {
-	        "home": "home",
+	        "": "home",
 	        "profile": "profile",
 	    }
 	});

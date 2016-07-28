@@ -1,11 +1,5 @@
 // var BookModel = Backbone.Model.extend({
 //     urlRoot : '/books/',
-//     initialize:function(){
-//         // var that = this;
-//         // this.fetch().then(function(){
-//         // });
-//         //this.fetch();
-//     },
 //     url: function() {
 //         return this.urlRoot + this.id;
 //     },
@@ -14,15 +8,8 @@
 // var BooksCollection = Backbone.Collection.extend({
 //     url: '/books',
 //     model: BookModel,
-//     initialize:function(){
-//         var that = this;
-//         this.fetch().then(function(){
-//             // console.log(that.models[10].attributes.year);
-//            // console.log(that.get(10).get("year"));
-//         });
-//     }
 // });
-//
+// //
 // var books = new BooksCollection();
 //
 // var BookItemView = Backbone.Marionette.ItemView.extend({
@@ -37,19 +24,7 @@
 //
 // var BooksView = new BooksCollectionView({ collection: books  });
 //
-// BooksView.render();
-//
-// document.body.appendChild(BooksView.el);
-//
-
-
-
-
-
-// var tv = new testView();
-// tv.render();
-//
-
+//BooksView.render();
 
 
 App = new Backbone.Marionette.Application({
@@ -68,7 +43,7 @@ App.on("start", function(options){
     Backbone.history.start();
 });
 
-$(function() {
+$(function() { 
     App.start();
 });
 

@@ -1,0 +1,1 @@
+webpack ./app/main.js ./app/app.webpack.js
