@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <style type="text/css">
-        #content{
-            background-color:#9d9d9d;
+        .mainTable{
+            width:100%;
+        }
+        .mainTable td{
+            font-family: Arial;
         }
     </style>
 </head>
@@ -26,10 +29,10 @@
 
 
 <script type="text/template" id="books-template">
-    <td class="author"><%= author %></td>
-    <td class="year"><%= year %></td>
-    <td class="title"><%= title %></td>
-    <td class="genre"><%= genre %></td>
+    <td class='author'><%= author %></td>
+    <td class='year'><%= year %></td>
+    <td class='title'><%= title %></td>
+    <td class='genre'><%= genre %></td>
 </script>
 
 <script type="text/template" id="tTemplate">

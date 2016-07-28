@@ -126,9 +126,9 @@
 	        });
 
 	        var BooksCollectionView = Backbone.Marionette.CollectionView.extend({
-	            childView: BookItemView ,
+	            childView: BookItemView,
 	            tagName: 'table',
-	            className:'table table-striped'
+	            className:'table table-striped mainTable'
 	        });
 
 	        var BookCollection = new BookCollection();
