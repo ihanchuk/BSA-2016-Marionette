@@ -49,6 +49,18 @@ class UsersController extends Controller
         $user->last_name = $request->get("last_name");
         $user->email = $request->get("email");
         $user->save();
-        return "Model updated";
+        return "User updated";
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        User::destroy($id);
+        return "user deleted";
     }
 }

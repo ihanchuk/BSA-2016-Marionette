@@ -165,6 +165,7 @@
 	    },
 	    
 	    SetModelProperty:function (event) {
+	        console.info("setting new value to fmodel field");
 	       var field = event.target.className;
 	        var newVal =$(event.currentTarget).val();
 	        var newData = {};
@@ -178,6 +179,10 @@
 	        "change @ui.title":"SetModelProperty",
 	        "change @ui.genre":"SetModelProperty",
 	        "change @ui.author":"SetModelProperty",
+	        "focusout  @ui.year":"SetModelProperty",
+	        "focusout  @ui.title":"SetModelProperty",
+	        "focusout  @ui.genre":"SetModelProperty",
+	        "focusout  @ui.author":"SetModelProperty",
 	    },
 	    modelEvents:{
 	        "change":"render"
@@ -233,7 +238,7 @@
 	    tagName: "tr",
 	    template: '#user-template',
 	    ui: {
-	        deleteModel: ".deleteModel",
+	        deleteModel: ".deleteUser",
 	        syncModel: ".syncModel",
 	        first_name:".first_name",
 	        last_name:".last_name",

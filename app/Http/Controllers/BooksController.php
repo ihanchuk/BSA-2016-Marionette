@@ -54,7 +54,7 @@ class BooksController extends Controller
         $book->year = $request->get("year");
         $book->title = $request->get("title");
         $book->save();
-        return "Model updated";
+        return "Book updated";
     }
 
     /**

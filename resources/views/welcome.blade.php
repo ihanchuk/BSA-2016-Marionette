@@ -59,7 +59,7 @@
     <td><input type='text' value='<%= first_name %>' class="first_name"></td>
     <td><input type='text' value='<%= last_name %>' class="last_name"></td>
     <td><input type='text' value='<%= email %>' class="email"></td>
-    <td><input type='button' class='deleteModel' value='delete'></td>
+    <td><input type='button' class='deleteUser' value='delete'></td>
     <td><input type='button'  class='syncModel' value='Sync to server'></td>
 </script>
 <script type="text/template" id="books-template">

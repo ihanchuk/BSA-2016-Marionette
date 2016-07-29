@@ -2,7 +2,7 @@ var BookItemView = Backbone.Marionette.ItemView.extend({
     tagName: "tr",
     template: '#user-template',
     ui: {
-        deleteModel: ".deleteModel",
+        deleteModel: ".deleteUser",
         syncModel: ".syncModel",
         first_name:".first_name",
         last_name:".last_name",

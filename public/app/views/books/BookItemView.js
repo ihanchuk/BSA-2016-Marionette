@@ -24,6 +24,7 @@ var BookItemView = Backbone.Marionette.ItemView.extend({
     },
     
     SetModelProperty:function (event) {
+        console.info("setting new value to fmodel field");
        var field = event.target.className;
         var newVal =$(event.currentTarget).val();
         var newData = {};
@@ -37,6 +38,10 @@ var BookItemView = Backbone.Marionette.ItemView.extend({
         "change @ui.title":"SetModelProperty",
         "change @ui.genre":"SetModelProperty",
         "change @ui.author":"SetModelProperty",
+        "focusout  @ui.year":"SetModelProperty",
+        "focusout  @ui.title":"SetModelProperty",
+        "focusout  @ui.genre":"SetModelProperty",
+        "focusout  @ui.author":"SetModelProperty",
     },
     modelEvents:{
         "change":"render"
