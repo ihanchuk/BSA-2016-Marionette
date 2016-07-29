@@ -271,6 +271,9 @@
 	        "change @ui.first_name":"SetModelProperty",
 	        "change @ui.last_name":"SetModelProperty",
 	        "change @ui.email":"SetModelProperty",
+	        "focusout  @ui.first_name":"SetModelProperty",
+	        "focusout  @ui.last_name":"SetModelProperty",
+	        "focusout  @ui.email":"SetModelProperty",
 	    },
 	    modelEvents:{
 	        "change":"render"

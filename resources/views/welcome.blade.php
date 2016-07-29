@@ -67,8 +67,8 @@
     <td><input type='text' value='<%= year %>' class="year"></td>
     <td><input type='text' value='<%= title %>' class="title"></td>
     <td><input type='text' value='<%= genre %>' class="genre"></td>
-    <td class='delete'><input type='button' class='deleteModel' value='delete'></td>
-    <td class='edit'><input type='button'  class='syncModel' value='Sync to server'></td>
+    <td><input type='button' class='deleteModel' value='delete'></td>
+    <td><input type='button'  class='syncModel' value='Sync to server'></td>
 </script>
 
 <script type="text/template" id="tTemplate">

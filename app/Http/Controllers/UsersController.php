@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Models\Books\Book;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -60,7 +61,17 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return "user deleted";
+        $user = User::findOrFail($id);
+        $userBooks = $user->books->toArray();
+
+        foreach($userBooks as $book){
+            $b  = Book::findOrFail($book["id"]);
+            $b->book_user_id = null;
+            $b->save();
+        }
+
+        $user->delete();
+
+        return "User deleted";
     }
 }
