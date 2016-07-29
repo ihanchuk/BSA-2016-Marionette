@@ -1,5 +1,5 @@
 var UserModel = Backbone.Model.extend({
-    urlRoot : '/books/',
+    urlRoot : '/users/',
     url: function() {
         return this.urlRoot + this.id;
     },

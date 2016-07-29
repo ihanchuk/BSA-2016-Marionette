@@ -33,4 +33,22 @@ class UsersController extends Controller
         $userProfile["books"]  = $user->books->toArray();
         return response()->json($userProfile);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->first_name = $request->get("first_name");
+        $user->last_name = $request->get("last_name");
+        $user->email = $request->get("email");
+        $user->save();
+        return "Model updated";
+    }
 }

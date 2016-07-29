@@ -17,7 +17,16 @@ var MyController = Marionette.Controller.extend({
 
     },
     users: function() {
-        console.info("rendering users action");
+        var that = this.context;
+        var UserCollection = require("../collections/users/UserCollection.js");
+        var UserItemView = require("../views/users/UserItemView.js");
+        var UserCollectionView =  require("../views/users/UserCollectionView.js");
+        var UserCollection = new UserCollection();
+
+        UserCollection.fetch().done(function () {
+            var view =new UserCollectionView({collection: UserCollection});
+            that.content.show(view);
+        });
     }
 });
 

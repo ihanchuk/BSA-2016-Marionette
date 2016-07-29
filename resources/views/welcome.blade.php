@@ -6,19 +6,34 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <style type="text/css">
-        .mainTable{
+        .mainTable,.mainUsersTable{
             width:100%;
         }
-        .mainTable td{
-            border-bottom:1px solid silver;
+        tbody tr:nth-child(odd) {
+            background-color: #ccc;
+        }
+
+        .mainTable td,.mainUsersTable td{
+            border-bottom:1px solid #F7F7F7;
             padding:5px 0 5px 0;
         }
 
-        .mainTable td input[type=text]{
+        .mainTable td input[type=text],.mainUsersTable td input[type=text]{
             border:none;
         }
 
-        .mainTable td{
+        .mainTable td input[type=button],.mainUsersTable td input[type=button]{
+            border:none;
+            background-color:#FFEE00;
+            border-radius:3px;
+            padding:5px 10px 5px 10px;
+        }
+
+        .mainTable td input[type=button]:hover,.mainUsersTable td input[type=button]:hover{
+            background-color: #EDCF24;
+        }
+
+        .mainTable td, .mainUsersTable td{
             font-family: Arial;
         }
     </style>
@@ -39,6 +54,13 @@
 
 <script type="text/javascript">
     window.__token ="{!! csrf_token() !!}";
+</script>
+<script type="text/template" id="user-template">
+    <td><input type='text' value='<%= first_name %>' class="first_name"></td>
+    <td><input type='text' value='<%= last_name %>' class="last_name"></td>
+    <td><input type='text' value='<%= email %>' class="email"></td>
+    <td><input type='button' class='deleteModel' value='delete'></td>
+    <td><input type='button'  class='syncModel' value='Sync to server'></td>
 </script>
 <script type="text/template" id="books-template">
     <td><input type='text' value='<%= author %>' class="author"></td>

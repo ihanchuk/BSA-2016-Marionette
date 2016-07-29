@@ -60,7 +60,7 @@
 	    });
 	    var controller = __webpack_require__(1);
 	    controller.bindContext(this);
-	    var router = __webpack_require__(6);
+	    var router = __webpack_require__(10);
 	    Backbone.history.start();
 	});
 
@@ -94,7 +94,16 @@
 
 	    },
 	    users: function() {
-	        console.info("rendering users action");
+	        var that = this.context;
+	        var UserCollection = __webpack_require__(6);
+	        var UserItemView = __webpack_require__(8);
+	        var UserCollectionView =  __webpack_require__(9);
+	        var UserCollection = new UserCollection();
+
+	        UserCollection.fetch().done(function () {
+	            var view =new UserCollectionView({collection: UserCollection});
+	            that.content.show(view);
+	        });
 	    }
 	});
 
@@ -194,6 +203,92 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserModel = __webpack_require__(7);
+	var UserCollection = Backbone.Collection.extend({
+	    url: '/users',
+	    model: UserModel,
+	});
+	module.exports = UserCollection;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	var UserModel = Backbone.Model.extend({
+	    urlRoot : '/users/',
+	    url: function() {
+	        return this.urlRoot + this.id;
+	    },
+	});
+
+	module.exports =UserModel;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	var BookItemView = Backbone.Marionette.ItemView.extend({
+	    tagName: "tr",
+	    template: '#user-template',
+	    ui: {
+	        deleteModel: ".deleteModel",
+	        syncModel: ".syncModel",
+	        first_name:".first_name",
+	        last_name:".last_name",
+	        email:".email",
+	    },
+	    DeleteModelAction:function(){
+	        this.model.destroy({ headers: {_token:window.__token}});
+	    },
+	    SyncModelAction:function(){
+	        this.model.save(null, {
+	            success: function (model, response) {
+	                alert(response.responseText);
+	            },
+	            error: function (model, response) {
+	                alert(response.responseText);
+	            }
+	        });
+	    },
+
+	    SetModelProperty:function (event) {
+	        var field = event.target.className;
+	        var newVal =$(event.currentTarget).val();
+	        var newData = {};
+	        newData[field] = newVal;
+	        this.model.set(newData);
+	    },
+	    events:{
+	        "click @ui.deleteModel":'DeleteModelAction',
+	        "click @ui.syncModel":'SyncModelAction',
+	        "change @ui.first_name":"SetModelProperty",
+	        "change @ui.last_name":"SetModelProperty",
+	        "change @ui.email":"SetModelProperty",
+	    },
+	    modelEvents:{
+	        "change":"render"
+	    },
+	});
+
+	module.exports = BookItemView;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserItemView = __webpack_require__(8);
+	var UserCollectionView = Backbone.Marionette.CollectionView.extend({
+	    childView: UserItemView,
+	    tagName: 'table',
+	    className:'table table-striped mainUsersTable'
+	});
+
+	module.exports = UserCollectionView;
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var controller = __webpack_require__(1);
