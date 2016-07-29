@@ -131,6 +131,19 @@
 	    url: function() {
 	        return this.urlRoot + this.id;
 	    },
+	    validate:function(){
+	        var text  = new RegExp(/^[a-zA-Z ]+$/);
+	        var year =new RegExp(/^\d{4}$/);
+
+	        var errors = [];
+
+	        if(!text.test(this.get("author"))) errors.push({'author': 'failed'})
+	        if(!text.test(this.get("genre"))) errors.push({'genre': 'failed'})
+	        if(!text.test(this.get("title"))) errors.push({'title': 'failed'})
+	        if(!year.test(this.get("year"))) errors.push({'year': 'failed'})
+
+	        if (errors.length) return errors;
+	    }
 	});
 
 	module.exports =BookModel;
@@ -154,18 +167,25 @@
 	        this.model.destroy({ headers: {_token:window.__token}});
 	    },
 	    SyncModelAction:function(){
-	        this.model.save(null, {
-	            success: function (model, response) {
-	                alert(response.responseText);
-	            },
-	            error: function (model, response) {
-	                alert(response.responseText);
-	            }
-	        });
+	        this.model.validate();
+
+	        if (this.model.isValid()){
+	            this.model.save(null, {
+	                success: function (model, response) {
+	                    alert(response.responseText);
+	                },
+	                error: function (model, response) {
+	                    alert(response.responseText);
+	                }
+	            });
+	        } else{
+	            alert("Data validation errors. See console if u are developer  :-)");
+	            console.table(this.model.validate());
+	        }
 	    },
 	    
 	    SetModelProperty:function (event) {
-	        console.info("setting new value to fmodel field");
+	        console.info("setting new value to model field");
 	       var field = event.target.className;
 	        var newVal =$(event.currentTarget).val();
 	        var newData = {};
@@ -228,7 +248,6 @@
 	    },
 	    validate:function(){
 	        var text  = new RegExp(/^[a-zA-Z ]+$/);
-	//        var year =new RegExp(/^\d{4}$/);
 	        var email = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/);
 
 	        var errors = [];
@@ -262,6 +281,7 @@
 	    },
 	    SyncModelAction:function(){
 	        this.model.validate();
+
 	        if (this.model.isValid()){
 	            this.model.save(null, {
 	                success: function (model, response) {
@@ -271,9 +291,8 @@
 	                    alert(response.responseText);
 	                }
 	            });
-	        }
-	        else{
-	            alert("Data validation errors. See console for details :-)");
+	        } else{
+	            alert("Data validation errors. See console if u are developer  :-)");
 	            console.table(this.model.validate());
 	        }
 	    },

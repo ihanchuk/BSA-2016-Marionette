@@ -13,6 +13,7 @@ var BookItemView = Backbone.Marionette.ItemView.extend({
     },
     SyncModelAction:function(){
         this.model.validate();
+
         if (this.model.isValid()){
             this.model.save(null, {
                 success: function (model, response) {
@@ -22,9 +23,8 @@ var BookItemView = Backbone.Marionette.ItemView.extend({
                     alert(response.responseText);
                 }
             });
-        }
-        else{
-            alert("Data validation errors. See console for details :-)");
+        } else{
+            alert("Data validation errors. See console if u are developer  :-)");
             console.table(this.model.validate());
         }
     },

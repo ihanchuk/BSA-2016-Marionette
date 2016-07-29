@@ -5,7 +5,6 @@ var UserModel = Backbone.Model.extend({
     },
     validate:function(){
         var text  = new RegExp(/^[a-zA-Z ]+$/);
-//        var year =new RegExp(/^\d{4}$/);
         var email = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/);
 
         var errors = [];

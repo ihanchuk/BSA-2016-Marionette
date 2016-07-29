@@ -13,18 +13,25 @@ var BookItemView = Backbone.Marionette.ItemView.extend({
         this.model.destroy({ headers: {_token:window.__token}});
     },
     SyncModelAction:function(){
-        this.model.save(null, {
-            success: function (model, response) {
-                alert(response.responseText);
-            },
-            error: function (model, response) {
-                alert(response.responseText);
-            }
-        });
+        this.model.validate();
+
+        if (this.model.isValid()){
+            this.model.save(null, {
+                success: function (model, response) {
+                    alert(response.responseText);
+                },
+                error: function (model, response) {
+                    alert(response.responseText);
+                }
+            });
+        } else{
+            alert("Data validation errors. See console if u are developer  :-)");
+            console.table(this.model.validate());
+        }
     },
     
     SetModelProperty:function (event) {
-        console.info("setting new value to fmodel field");
+        console.info("setting new value to model field");
        var field = event.target.className;
         var newVal =$(event.currentTarget).val();
         var newData = {};
