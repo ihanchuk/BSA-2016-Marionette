@@ -226,6 +226,19 @@
 	    url: function() {
 	        return this.urlRoot + this.id;
 	    },
+	    validate:function(){
+	        var text  = new RegExp(/^[a-zA-Z ]+$/);
+	//        var year =new RegExp(/^\d{4}$/);
+	        var email = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+
+	        var errors = [];
+
+	        if(!email.test(this.get("email"))) errors.push({'email': 'failed'})
+	        if(!text.test(this.get("first_name"))) errors.push({'first_name': 'failed'})
+	        if(!text.test(this.get("last_name"))) errors.push({'last_name': 'failed'})
+
+	        if (errors.length) return errors;
+	    }
 	});
 
 	module.exports =UserModel;
@@ -248,16 +261,22 @@
 	        this.model.destroy({ headers: {_token:window.__token}});
 	    },
 	    SyncModelAction:function(){
-	        this.model.save(null, {
-	            success: function (model, response) {
-	                alert(response.responseText);
-	            },
-	            error: function (model, response) {
-	                alert(response.responseText);
-	            }
-	        });
+	        this.model.validate();
+	        if (this.model.isValid()){
+	            this.model.save(null, {
+	                success: function (model, response) {
+	                    alert(response.responseText);
+	                },
+	                error: function (model, response) {
+	                    alert(response.responseText);
+	                }
+	            });
+	        }
+	        else{
+	            alert("Data validation errors. See console for details :-)");
+	            console.table(this.model.validate());
+	        }
 	    },
-
 	    SetModelProperty:function (event) {
 	        var field = event.target.className;
 	        var newVal =$(event.currentTarget).val();
@@ -276,7 +295,7 @@
 	        "focusout  @ui.email":"SetModelProperty",
 	    },
 	    modelEvents:{
-	        "change":"render"
+	        "change":"render",
 	    },
 	});
 
