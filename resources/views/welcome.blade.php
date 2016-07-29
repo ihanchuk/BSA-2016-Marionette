@@ -36,6 +36,19 @@
         .mainTable td, .mainUsersTable td{
             font-family: Arial;
         }
+
+        #nav{
+            background-color:#2e3436;
+        }
+
+        #nav ul li{
+            display:inline-block;
+            padding:10px;
+        }
+
+        #nav ul li a{
+            color:white;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +56,11 @@
 <div class="container">
     <div id="main">
         <div id="nav">
-            Navigate
+            <ul>
+                <li><a href="/">Main page</a></li>
+                <li><a href="/#/books">Books page</a></li>
+                <li><a href="/#/users">Users page</a></li>
+            </ul>
         </div>
         <div id="content">
             Content

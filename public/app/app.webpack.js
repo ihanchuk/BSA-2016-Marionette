@@ -80,7 +80,7 @@
 	    bindContext:function(newContext){
 	        this.context = newContext;
 	    },
-	    home: function() {
+	    books: function() {
 	        var that = this.context;
 	        var BookCollection = __webpack_require__(2);
 	        var BookItemView = __webpack_require__(4);
@@ -341,7 +341,7 @@
 	var router = new Marionette.AppRouter({
 	    controller: controller,
 	    appRoutes: {
-	        "": "home",
+	        "books": "books",
 	        "users": "users",
 	    }
 	});

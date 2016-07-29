@@ -3,7 +3,7 @@ var MyController = Marionette.Controller.extend({
     bindContext:function(newContext){
         this.context = newContext;
     },
-    home: function() {
+    books: function() {
         var that = this.context;
         var BookCollection = require("../collections/books/BookCollection.js");
         var BookItemView = require("../views/books/BookItemView.js");
