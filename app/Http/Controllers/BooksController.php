@@ -38,7 +38,24 @@ class BooksController extends Controller
         Book::create($request->all());
         return response()->json(["created"=>true]);
     }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $book = Book::findOrFail($id);
 
+        $book->author = $request->get("author");
+        $book->genre = $request->get("genre");
+        $book->year = $request->get("year");
+        $book->title = $request->get("title");
+        $book->save();
+        return "Model updated";
+    }
 
     /**
      * Display the specified resource.

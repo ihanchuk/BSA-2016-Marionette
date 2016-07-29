@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource("/books","BooksController",['only' => ['destroy','show','create','index']]);
+Route::resource("/books","BooksController",['only' => ['destroy','show','create','index','update']]);
 Route::resource("/users","UsersController",['only' => ['show']]);
 Route::resource('books.users', 'BooksUsersController',['only' => ['update','show','edit']]);
