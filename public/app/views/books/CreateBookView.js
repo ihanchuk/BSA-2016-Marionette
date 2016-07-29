@@ -1,27 +1,27 @@
-var UserModel =require("../../models/users/UserModel.js");
-var  CreateUserView = Marionette.ItemView.extend({
-    template: '#user-create-template',
+var BookModel =require("../../models/books/BookModel.js");
+var  CreateBookView = Marionette.ItemView.extend({
+    template: '#book-create-template',
     tagName:"div",
     ui:{
-        createButton:"#saveNewUser",
-        cancelButton:"#cancelNewUser",
-        first_name:"#new_first_name",
-        last_name:"#new_last_name",
-        email:"#new_email",
-        password:"#new_password"
+        createButton:"#createNewBook",
+        cancelButton:"#cancelNewBook",
+        year:"#new_book_year",
+        genre:"#new_book_genre",
+        author:"#new_book_author",
+        title:"#new_book_title"
     },
     events:{
-        "click @ui.createButton":"CreateNewUser",
+        "click @ui.createButton":"CreateNewBook",
         "click @ui.cancelButton":"CancelDialog",
     },
-    CreateNewUser:function(){
+    CreateNewBook:function(){
         var data={
-            "first_name":this.ui.first_name.val(),
-            "last_name":this.ui.last_name.val(),
-            "email":this.ui.email.val(),
-            "password":this.ui.password.val(),
+            "author":this.ui.author.val(),
+            "genre":this.ui.genre.val(),
+            "year":this.ui.year.val(),
+            "title":this.ui.title.val(),
         };
-        var model = new UserModel(data);
+        var model = new BookModel(data);
 
         model.validate();
 
@@ -44,4 +44,4 @@ var  CreateUserView = Marionette.ItemView.extend({
     }
 });
 
-module.exports = CreateUserView;
+module.exports = CreateBookView;

@@ -66,7 +66,19 @@ class BooksController extends Controller
         $book->save();
         return "Book updated";
     }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
 
+        Book::create($request->all());
+
+        return "Book created";
+    }
     /**
      * Display the specified resource.
      *

@@ -60,7 +60,7 @@
 	    });
 	    var controller = __webpack_require__(1);
 	    controller.bindContext(this);
-	    var router = __webpack_require__(11);
+	    var router = __webpack_require__(12);
 	    Backbone.history.start();
 	});
 
@@ -110,6 +110,12 @@
 	        var CreateUserView =  __webpack_require__(10);
 	        var view = new CreateUserView();
 	        that.content.show(view);
+	    },
+	    CreateBook:function(){
+	        var that= this.context;
+	        var CreateBookView =  __webpack_require__(11);
+	        var view = new CreateBookView();
+	        that.content.show(view);
 	    }
 	});
 
@@ -135,7 +141,13 @@
 	var BookModel = Backbone.Model.extend({
 	    urlRoot : '/books/',
 	    url: function() {
-	        return this.urlRoot + this.id;
+	        if(this.id) {
+	            return this.urlRoot + this.id;
+	        }
+	        else
+	        {
+	            return "/books";
+	        }
 	    },
 	    validate:function(){
 	        var text  = new RegExp(/^[a-zA-Z ]+$/);
@@ -391,7 +403,7 @@
 	        }
 	    },
 	    CancelDialog:function(){
-	        alert("cancel");
+	        window.history.back();
 	    }
 	});
 
@@ -401,13 +413,66 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var BookModel =__webpack_require__(3);
+	var  CreateBookView = Marionette.ItemView.extend({
+	    template: '#book-create-template',
+	    tagName:"div",
+	    ui:{
+	        createButton:"#createNewBook",
+	        cancelButton:"#cancelNewBook",
+	        year:"#new_book_year",
+	        genre:"#new_book_genre",
+	        author:"#new_book_author",
+	        title:"#new_book_title"
+	    },
+	    events:{
+	        "click @ui.createButton":"CreateNewBook",
+	        "click @ui.cancelButton":"CancelDialog",
+	    },
+	    CreateNewBook:function(){
+	        var data={
+	            "author":this.ui.author.val(),
+	            "genre":this.ui.genre.val(),
+	            "year":this.ui.year.val(),
+	            "title":this.ui.title.val(),
+	        };
+	        var model = new BookModel(data);
+
+	        model.validate();
+
+	        if (model.isValid()){
+	            model.save(null, {
+	                success: function (model, response) {
+	                    alert(response.responseText);
+	                },
+	                error: function (model, response) {
+	                    alert(response.responseText);
+	                }
+	            });
+	        } else{
+	            alert("Data validation errors. See console if u are developer  :-)");
+	            console.table(model.validate());
+	        }
+	    },
+	    CancelDialog:function(){
+	        window.history.back();
+	    }
+	});
+
+	module.exports = CreateBookView;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var controller = __webpack_require__(1);
 	var router = new Marionette.AppRouter({
 	    controller: controller,
 	    appRoutes: {
 	        "books": "books",
 	        "users": "users",
-	        "createuser":"CreateUser"
+	        "createuser":"CreateUser",
+	        "createbook":"CreateBook"
 	    }
 	});
 

@@ -1,7 +1,13 @@
 var BookModel = Backbone.Model.extend({
     urlRoot : '/books/',
     url: function() {
-        return this.urlRoot + this.id;
+        if(this.id) {
+            return this.urlRoot + this.id;
+        }
+        else
+        {
+            return "/books";
+        }
     },
     validate:function(){
         var text  = new RegExp(/^[a-zA-Z ]+$/);

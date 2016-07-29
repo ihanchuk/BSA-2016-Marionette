@@ -33,6 +33,12 @@ var MyController = Marionette.Controller.extend({
         var CreateUserView =  require("../views/users/CreateUserView.js");
         var view = new CreateUserView();
         that.content.show(view);
+    },
+    CreateBook:function(){
+        var that= this.context;
+        var CreateBookView =  require("../views/books/CreateBookView.js");
+        var view = new CreateBookView();
+        that.content.show(view);
     }
 });
 

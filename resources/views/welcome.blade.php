@@ -18,7 +18,7 @@
             border:none;
         }
 
-        .mainTable td input[type=button],.mainUsersTable td input[type=button]{
+        .mainTable td input[type=button],.mainTable td input[type=password], .mainUsersTable td input[type=button]{
             border:none;
             background-color:#FFEE00;
             border-radius:3px;
@@ -56,7 +56,8 @@
                 <li><a href="/">Main page</a></li>
                 <li><a href="/#/books">Books page</a></li>
                 <li><a href="/#/users">Users page</a></li>
-                <li><a href="/#/createuser">New User</a></li>
+                <<li><a href="/#/createuser">New User</a></li>
+                <<li><a href="/#/createbook">New Book</a></li>
             </ul>
         </div>
         <div id="content">
@@ -69,6 +70,39 @@
 <script type="text/javascript">
     window.__token ="{!! csrf_token() !!}";
 </script>
+
+<script type='text/template' id='book-create-template'>
+    <div class='useCreateForm'>
+        <table class='createUserTable mainTable'>
+            <tr>
+                <td class='legend'>Book Author:: </td>
+                <td class='input'><input type='text'  id='new_book_author' placeholder="book author"></td>
+            </tr>
+            <tr>
+                <td class="legend">Book Title:: </td>
+                <td class="input"><input type="text" id="new_book_title" placeholder="book title"></td>
+            </tr>
+            <tr>
+                <td class="legend">Book Genre:: </td>
+                <td class="input"><input type="text" id="new_book_genre" placeholder="boo genre"></td>
+            </tr>
+            <tr>
+                <td class="legend">Year Book was published:: </td>
+                <td class="input"><input type="text" id="new_book_year" placeholder="year"></td>
+            </tr>
+            <tr>
+                <td class="legend">Save Book:: </td>
+                <td class="input"><input type="button" id="createNewBook" value="Save new Book"></td>
+            </tr>
+            <tr>
+                <td class="legend">Cancel:: </td>
+                <td class="input"><input type="button" id="cancelNewUser" value="Cancel"></td>
+            </tr>
+        </table>
+    </div>
+</script>
+
+
 <script type='text/template' id='user-create-template'>
     <div class='useCreateForm'>
         <table class='createUserTable mainTable'>
@@ -86,7 +120,7 @@
             </tr>
             <tr>
                 <td class="legend">User Password:: </td>
-                <td class="input"><input type="password" name="newUserPassword" id="new_password" placeholder="email"></td>
+                <td class="input"><input type="password" name="newUserPassword" id="new_password" placeholder="password"></td>
             </tr>
             <tr>
                 <td class="legend">Save User:: </td>
