@@ -11,6 +11,16 @@ use App\Http\Requests;
 class UsersController extends Controller
 {
     /**
+     * Setting middleware to prevent
+     * non Ajax requests.
+     */
+
+    public function __construct()
+    {
+        $this->middleware('ajaxRequest');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

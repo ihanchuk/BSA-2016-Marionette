@@ -10,6 +10,16 @@ use App\Models\Books\Book;
 class BooksUsersController extends Controller
 {
     /**
+     * Setting midleware to prevent
+     * non Ajax requests.
+     */
+
+    public function __construct()
+    {
+        $this->middleware('ajaxRequest');
+    }
+    
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

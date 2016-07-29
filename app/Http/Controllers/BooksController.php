@@ -11,6 +11,16 @@ use App\User;
 class BooksController extends Controller
 {
     /**
+     * Setting midleware to prevent
+     * non Ajax requests.
+     */
+
+    public function __construct()
+    {
+        $this->middleware('ajaxRequest');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
