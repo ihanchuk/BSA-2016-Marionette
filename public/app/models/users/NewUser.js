@@ -1,13 +1,7 @@
 var UserModel = Backbone.Model.extend({
-    urlRoot : '/users/',
+    urlRoot : '/users',
     url: function() {
-        if(this.id) {
-            return this.urlRoot + this.id;
-        }
-        else
-        {
-            return "/users"
-        }
+        return this.urlRoot;
     },
     validate:function(){
         var text  = new RegExp(/^[a-zA-Z ]+$/);

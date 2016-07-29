@@ -4,6 +4,7 @@ var router = new Marionette.AppRouter({
     appRoutes: {
         "books": "books",
         "users": "users",
+        "createuser":"CreateUser"
     }
 });
 

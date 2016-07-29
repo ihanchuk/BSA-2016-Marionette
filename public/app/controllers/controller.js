@@ -27,6 +27,12 @@ var MyController = Marionette.Controller.extend({
             var view =new UserCollectionView({collection: UserCollection});
             that.content.show(view);
         });
+    },
+    CreateUser:function(){
+        var that= this.context;
+        var CreateUserView =  require("../views/users/CreateUserView.js");
+        var view = new CreateUserView();
+        that.content.show(view);
     }
 });
 

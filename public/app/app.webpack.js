@@ -60,7 +60,7 @@
 	    });
 	    var controller = __webpack_require__(1);
 	    controller.bindContext(this);
-	    var router = __webpack_require__(10);
+	    var router = __webpack_require__(11);
 	    Backbone.history.start();
 	});
 
@@ -104,6 +104,12 @@
 	            var view =new UserCollectionView({collection: UserCollection});
 	            that.content.show(view);
 	        });
+	    },
+	    CreateUser:function(){
+	        var that= this.context;
+	        var CreateUserView =  __webpack_require__(10);
+	        var view = new CreateUserView();
+	        that.content.show(view);
 	    }
 	});
 
@@ -244,7 +250,13 @@
 	var UserModel = Backbone.Model.extend({
 	    urlRoot : '/users/',
 	    url: function() {
-	        return this.urlRoot + this.id;
+	        if(this.id) {
+	            return this.urlRoot + this.id;
+	        }
+	        else
+	        {
+	            return "/users"
+	        }
 	    },
 	    validate:function(){
 	        var text  = new RegExp(/^[a-zA-Z ]+$/);
@@ -337,12 +349,65 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var UserModel =__webpack_require__(7);
+	var  CreateUserView = Marionette.ItemView.extend({
+	    template: '#user-create-template',
+	    tagName:"div",
+	    ui:{
+	        createButton:"#saveNewUser",
+	        cancelButton:"#cancelNewUser",
+	        first_name:"#new_first_name",
+	        last_name:"#new_last_name",
+	        email:"#new_email",
+	        password:"#new_password"
+	    },
+	    events:{
+	        "click @ui.createButton":"CreateNewUser",
+	        "click @ui.cancelButton":"CancelDialog",
+	    },
+	    CreateNewUser:function(){
+	        var data={
+	            "first_name":this.ui.first_name.val(),
+	            "last_name":this.ui.last_name.val(),
+	            "email":this.ui.email.val(),
+	            "password":this.ui.password.val(),
+	        };
+	        var model = new UserModel(data);
+
+	        model.validate();
+
+	        if (model.isValid()){
+	            model.save(null, {
+	                success: function (model, response) {
+	                    alert(response.responseText);
+	                },
+	                error: function (model, response) {
+	                    alert(response.responseText);
+	                }
+	            });
+	        } else{
+	            alert("Data validation errors. See console if u are developer  :-)");
+	            console.table(model.validate());
+	        }
+	    },
+	    CancelDialog:function(){
+	        alert("cancel");
+	    }
+	});
+
+	module.exports = CreateUserView;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var controller = __webpack_require__(1);
 	var router = new Marionette.AppRouter({
 	    controller: controller,
 	    appRoutes: {
 	        "books": "books",
 	        "users": "users",
+	        "createuser":"CreateUser"
 	    }
 	});
 

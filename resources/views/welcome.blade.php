@@ -9,10 +9,6 @@
         .mainTable,.mainUsersTable{
             width:100%;
         }
-        tbody tr:nth-child(odd) {
-            background-color: #ccc;
-        }
-
         .mainTable td,.mainUsersTable td{
             border-bottom:1px solid #F7F7F7;
             padding:5px 0 5px 0;
@@ -60,6 +56,7 @@
                 <li><a href="/">Main page</a></li>
                 <li><a href="/#/books">Books page</a></li>
                 <li><a href="/#/users">Users page</a></li>
+                <li><a href="/#/createuser">New User</a></li>
             </ul>
         </div>
         <div id="content">
@@ -71,6 +68,36 @@
 
 <script type="text/javascript">
     window.__token ="{!! csrf_token() !!}";
+</script>
+<script type='text/template' id='user-create-template'>
+    <div class='useCreateForm'>
+        <table class='createUserTable mainTable'>
+            <tr>
+                <td class='legend'>User First name:: </td>
+                <td class='input'><input type='text' name='newUserFirstName' id='new_first_name' placeholder="first name"></td>
+            </tr>
+            <tr>
+                <td class="legend">User Last name:: </td>
+                <td class="input"><input type="text" name="newUserLastName" id="new_last_name" placeholder="last name"></td>
+            </tr>
+            <tr>
+                <td class="legend">User Email:: </td>
+                <td class="input"><input type="text" name="newUserEmail" id="new_email" placeholder="email"></td>
+            </tr>
+            <tr>
+                <td class="legend">User Password:: </td>
+                <td class="input"><input type="password" name="newUserPassword" id="new_password" placeholder="email"></td>
+            </tr>
+            <tr>
+                <td class="legend">Save User:: </td>
+                <td class="input"><input type="button" id="saveNewUser" value="Save new User"></td>
+            </tr>
+            <tr>
+                <td class="legend">Cancel:: </td>
+                <td class="input"><input type="button" id="cancelNewUser" value="Cancel"></td>
+            </tr>
+        </table>
+    </div>
 </script>
 <script type="text/template" id="user-template">
     <td><input type='text' value='<%= first_name %>' class="first_name"></td>
