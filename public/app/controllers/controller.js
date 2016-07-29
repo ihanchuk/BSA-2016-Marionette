@@ -16,8 +16,8 @@ var MyController = Marionette.Controller.extend({
         });
 
     },
-    profile: function() {
-        console.info("rendering profile action");
+    users: function() {
+        console.info("rendering users action");
     }
 });
 

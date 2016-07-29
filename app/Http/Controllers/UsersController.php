@@ -10,6 +10,17 @@ use App\Http\Requests;
 class UsersController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

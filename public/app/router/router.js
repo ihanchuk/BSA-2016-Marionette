@@ -3,7 +3,7 @@ var router = new Marionette.AppRouter({
     controller: controller,
     appRoutes: {
         "": "home",
-        "profile": "profile",
+        "users": "users",
     }
 });
 

@@ -93,8 +93,8 @@
 	        });
 
 	    },
-	    profile: function() {
-	        console.info("rendering profile action");
+	    users: function() {
+	        console.info("rendering users action");
 	    }
 	});
 
@@ -201,7 +201,7 @@
 	    controller: controller,
 	    appRoutes: {
 	        "": "home",
-	        "profile": "profile",
+	        "users": "users",
 	    }
 	});
 
